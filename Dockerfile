@@ -13,6 +13,12 @@ RUN apt-get update \
 ADD docker_files/hue-run.sh /apps/hue-run.sh
 RUN chmod a+x /apps/*.sh
 
+# declare the volumes
+RUN mkdir /etc/hue/conf.bb \
+ && update-alternatives --install /etc/hue/conf hue-conf /etc/hue/conf.bb 1 \
+ && update-alternatives --set hue-conf /etc/hue/conf.bb
+VOLUME /etc/hue/conf.bb
+
 # external ports
 EXPOSE 8888
 
